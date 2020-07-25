@@ -3,13 +3,10 @@ package com.example.demo.controller;
 import java.security.Principal;
 import java.util.List;
 
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.domain.PrimaryAccount;
@@ -81,12 +78,22 @@ public class TransferController {
         transactionService.deleteRecipientByName(recipientName);
     }
 
-    @RequestMapping(value = "/toSomeoneElse",method = RequestMethod.POST)
-    public void toSomeoneElsePost(JSONObject jsonObject, Principal principal) {
-        String recipientName = jsonObject.getString("recipientName");
-        String accountType = jsonObject.getString("accountType");
-        String amount = jsonObject.getString("amount");
+//    @RequestMapping(value = "/toSomeoneElse",method = RequestMethod.POST)
+////    public void toSomeoneElsePost(JSONObject jsonObject, Principal principal) {
+////        String recipientName = jsonObject.getString("recipientName");
+////        String accountType = jsonObject.getString("accountType");
+////        String amount = jsonObject.getString("amount");
+////
+////        User user = userService.findByUsername(principal.getName());
+////        Recipient recipient = transactionService.findRecipientByName(recipientName);
+////        transactionService.toSomeoneElseTransfer(recipient, accountType, amount, user.getPrimaryAccount(), user.getSavingsAccount());
+////    }
 
+    @RequestMapping(value = "/toSomeoneElse",method = RequestMethod.POST)
+    public void toSomeoneElsePost(@RequestParam(value = "recipientName") String recipientName,
+                                  @RequestParam(value = "accountType") String accountType,
+                                  @RequestParam(value = "amount") String amount,
+                                  Principal principal) {
         User user = userService.findByUsername(principal.getName());
         Recipient recipient = transactionService.findRecipientByName(recipientName);
         transactionService.toSomeoneElseTransfer(recipient, accountType, amount, user.getPrimaryAccount(), user.getSavingsAccount());
