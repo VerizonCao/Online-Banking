@@ -3,8 +3,8 @@
 
 import { combineReducers } from "redux";
 import errorReducer from "./errorReducer";
-import projectReducer from "./projectReducer";
-import backlogReducer from "./backlogReducer";
+import projectReducer from "./accountReducer";
+import backlogReducer from "./transferReducer";
 import securityReducer from "./securityReducer";
 
 export default combineReducers({
