@@ -1,0 +1,61 @@
+rcc
+
+
+git:
+git pull origin master 
+git push -u origin master
+
+git pull origin master
+
+router 和 route
+
+react通过axios和后端spring连接
+
+首先 action 然后连接backend 然后得到信息，使用dispatch，改变store内容，map store to component 
+然后state变化，改变前端呈现
+
+
+add project 里面的表格
+
+set a store
+
+重要：
+首先，component调用dispatch action，结果返回store。然后store通过previous state 和 action 给reducer
+reducer改变state，返回
+
+connect redux和store连接
+
+provider 将store给组建
+
+
+//add project
+reducer 只用到了error  然后action是直接post。出错了 调用error
+
+//get list of project
+reducer  用到了projects    action getproject
+
+如何保证update的操作  原来的信息在上面，然后可以修改
+<Link to={`/updateProject/${project.projectIdentifier}`}>  高端写法 结合jsx和数据
+
+首先是 mount里面得到project的信息，给到state，在value中显示。然后如果改变了。create a new one(post + id) 所以是
+更新。然后显示。  包括了onchange 和 onsubmit
+
+处理了 errors 和 不能通过访问错误的url来update project 
+然后errors清除
+
+//delete 不需要call  api 而是直接访问redux store
+
+//定义相对路径  proxy
+
+回来了  完成project task的后端
+
+type -> reducer -> 
+
+处理了url直接寻址的问题  本质是处理error
+
+根据task的pri来分区块
+
+把token从local storage搬运到 每个请求的header里面
+即使token还在 但是back end 的token已经过期了
+
+
