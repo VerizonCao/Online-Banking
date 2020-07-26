@@ -5,17 +5,17 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 
 //get actions
-import { createProject } from "../../actions/projectAction";
+import { createAccount } from "../../actions/projectAction";
 
-class AddProject extends Component {
+class AddAccount extends Component {
   constructor() {
     super();
     this.state = {
-      projectName: "",
-      projectIdentifier: "",
-      description: "",
+      accountName: "",
+      accountIdentifier: "",
+      user_id: "",
       start_Date: "",
-      end_Date: "",
+      type: "",
       errors: {},
     };
   }
@@ -36,18 +36,18 @@ class AddProject extends Component {
     //prevent for refresh
     e.preventDefault();
 
-    const newProject = {
-      projectName: this.state.projectName,
-      projectIdentifier: this.state.projectIdentifier,
+    const newAccount = {
+      accountName: this.state.accountName,
+      accountIdentifier: this.state.accountIdentifier,
       description: this.state.description,
       start_Date: this.state.start_Date,
-      end_Date: this.state.end_Date,
+      type: this.state.type,
     };
 
     //调用action
-    this.props.createProject(newProject, this.props.history);
+    this.props.createAccount(newAccount, this.props.history);
 
-    console.log(newProject);
+    console.log(newAccount);
   };
 
   render() {
@@ -72,31 +72,31 @@ class AddProject extends Component {
                   <input
                     type="text"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.projectName,
+                      "is-invalid": errors.accountName,
                     })}
                     placeholder="Project Name"
-                    name="projectName"
-                    value={this.state.projectName}
+                    name="accountName"
+                    value={this.state.accountName}
                     onChange={this.onChange.bind(this)}
                   />
-                  {errors.projectName && (
-                    <div className="invalid-feedback">{errors.projectName}</div>
+                  {errors.accountName && (
+                    <div className="invalid-feedback">{errors.accountName}</div>
                   )}
                 </div>
                 <div className="form-group">
                   <input
                     type="text"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.projectIdentifier,
+                      "is-invalid": errors.accountIdentifier,
                     })}
                     placeholder="Unique Project ID"
-                    name="projectIdentifier"
-                    value={this.state.projectIdentifier}
+                    name="accountIdentifier"
+                    value={this.state.accountIdentifier}
                     onChange={this.onChange.bind(this)}
                   />
-                  {errors.projectIdentifier && (
+                  {errors.accountIdentifier && (
                     <div className="invalid-feedback">
-                      {errors.projectIdentifier}
+                      {errors.accountIdentifier}
                     </div>
                   )}
                 </div>
@@ -128,10 +128,10 @@ class AddProject extends Component {
                 <h6>Estimated End Date</h6>
                 <div className="form-group">
                   <input
-                    type="date"
+                    type="type"
                     className="form-control form-control-lg"
-                    name="end_Date"
-                    value={this.state.end_Date}
+                    name="type"
+                    value={this.state.type}
                     onChange={this.onChange.bind(this)}
                   />
                 </div>
@@ -150,8 +150,8 @@ class AddProject extends Component {
 }
 
 //与主逻辑无关
-AddProject.propTypes = {
-  createProject: PropTypes.func.isRequired,
+AddAccount.propTypes = {
+  createAccount: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
@@ -164,4 +164,4 @@ const mapStateToProps = (state) => ({
 
 //使用connect   store根据action的属性调用reducer。 返回新的state放入store
 //同时监听 state的改变
-export default connect(mapStateToProps, { createProject })(AddProject);
+export default connect(mapStateToProps, { createAccount })(AddAccount);
