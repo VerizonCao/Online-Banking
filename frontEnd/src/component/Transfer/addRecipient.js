@@ -1,130 +1,118 @@
 import React, { Component } from "react";
-import { getaccount, createaccount } from "../../actions/accountAction";
 import { PropTypes } from "prop-types";
-import { connect } from "react-redux";
 import classnames from "classnames";
+//state to props
+import { connect } from "react-redux";
 
-class Updateaccount extends Component {
+//get actions
+import { createRecipient } from "../../actions/transferActions";
+
+
+//form and post adding recipient API
+class Addrecipient extends Component {
   constructor() {
     super();
-
     this.state = {
-      id: "",
-      accountName: "",
-      accountIdentifier: "",
-      description: "",
+      recipientName: "",
+      recipientIdentifier: "",
+      user_id: "",
       start_Date: "",
       type: "",
       errors: {},
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  //每次render被调用传送给props,在这里update state
+  //load state from props
   componentWillReceiveProps(nextProps) {
-    //get from next props
+    //如果props现在有errors了，改动state
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    const {
-      id,
-      accountName,
-      accountIdentifier,
-      description,
-      start_Date,
-      type,
-    } = nextProps.account;
-
-    this.setState({
-      id,
-      accountName,
-      accountIdentifier,
-      description,
-      start_Date,
-      type,
-    });
-  }
-
-  componentDidMount() {
-    // id从这个params得到
-    const { id } = this.props.match.params;
-    //直接调这个函数
-    this.props.getaccount(id, this.props.history);
   }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
+    //prevent for refresh
     e.preventDefault();
 
-    const updateaccount = {
-      id: this.state.id,
-      accountName: this.state.accountName,
-      accountIdentifier: this.state.accountIdentifier,
+    const newrecipient = {
+      recipientName: this.state.recipientName,
+      recipientIdentifier: this.state.recipientIdentifier,
       description: this.state.description,
       start_Date: this.state.start_Date,
       type: this.state.type,
     };
 
-    this.props.createaccount(updateaccount, this.props.history);
-  }
+    //调用action
+    this.props.createRecipient(newrecipient, this.props.history);
+
+    console.log(newrecipient);
+  };
 
   render() {
     const { errors } = this.state;
+
     return (
-      <div className="account">
+      <div className="transfer">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h5 className="display-4 text-center">Update account form</h5>
+              <h5 className="display-4 text-center">Create transfer form</h5>
               <hr />
-              <form onSubmit={this.onSubmit}>
+              <form onSubmit={this.onSubmit.bind(this)}>
+                {
+                  //这个form要和spring的transfer对应
+                  //name 和 value需要和spring里面的一样
+                  //onchange是form需要的，没有的话无法写东西
+                  //每次改变表格内容，同步到state内容  根据setstate来表示的
+                  //onsubmit
+                }
                 <div className="form-group">
                   <input
                     type="text"
-                    className={classnames("form-control form-control-lg ", {
-                      "is-invalid": errors.accountName,
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.recipientName,
                     })}
-                    placeholder="account Name"
-                    value={this.state.accountName}
-                    name="accountName"
-                    onChange={this.onChange}
+                    placeholder="transfer Name"
+                    name="recipientName"
+                    value={this.state.recipientName}
+                    onChange={this.onChange.bind(this)}
                   />
-                  {errors.accountName && (
-                    <div className="invalid-feedback">{errors.accountName}</div>
+                  {errors.recipientName && (
+                    <div className="invalid-feedback">{errors.recipientName}</div>
                   )}
                 </div>
                 <div className="form-group">
                   <input
                     type="text"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.accountIdentifier,
+                      "is-invalid": errors.recipientIdentifier,
                     })}
-                    placeholder="Unique account ID"
-                    name="accountIdentifier"
-                    value={this.state.accountIdentifier}
-                    onChange={this.onChange}
-                    disabled //限制了不能修改
+                    placeholder="Unique transfer ID"
+                    name="recipientIdentifier"
+                    value={this.state.recipientIdentifier}
+                    onChange={this.onChange.bind(this)}
                   />
-                  {errors.accountIdentifier && (
+                  {errors.recipientIdentifier && (
                     <div className="invalid-feedback">
-                      {errors.accountIdentifier}
+                      {errors.recipientIdentifier}
                     </div>
                   )}
                 </div>
+
                 <div className="form-group">
                   <textarea
                     className={classnames("form-control form-control-lg", {
                       "is-invalid": errors.description,
                     })}
-                    placeholder="account Description"
+                    placeholder="transfer Description"
                     name="description"
                     value={this.state.description}
-                    onChange={this.onChange}
-                  />
+                    onChange={this.onChange.bind(this)}
+                  ></textarea>
                   {errors.description && (
                     <div className="invalid-feedback">{errors.description}</div>
                   )}
@@ -136,17 +124,17 @@ class Updateaccount extends Component {
                     className="form-control form-control-lg"
                     name="start_Date"
                     value={this.state.start_Date}
-                    onChange={this.onChange}
+                    onChange={this.onChange.bind(this)}
                   />
                 </div>
                 <h6>Estimated End Date</h6>
                 <div className="form-group">
                   <input
-                    type="date"
+                    type="type"
                     className="form-control form-control-lg"
                     name="type"
                     value={this.state.type}
-                    onChange={this.onChange}
+                    onChange={this.onChange.bind(this)}
                   />
                 </div>
 
@@ -163,18 +151,19 @@ class Updateaccount extends Component {
   }
 }
 
-Updateaccount.propTypes = {
-  account: PropTypes.object.isRequired,
-  getaccount: PropTypes.func.isRequired,
-  createaccount: PropTypes.func.isRequired,
+//与主逻辑无关
+Addrecipient.propTypes = {
+  createRecipient: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
+//map state to props
+//这里的猜想是让store中的state传给props。因为没有 this.state.errors
+//所以后续才需要把props给到state
 const mapStateToProps = (state) => ({
-  account: state.account.account,
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { getaccount, createaccount })(
-  Updateaccount
-);
+//使用connect   store根据action的属性调用reducer。 返回新的state放入store
+//同时监听 state的改变
+export default connect(mapStateToProps, { createRecipient })(Addrecipient);

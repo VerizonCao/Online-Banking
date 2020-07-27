@@ -2,21 +2,22 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import classnames from "classnames";
-import { addProjectTask } from "../../../actions/backlogActions";
+import { TransferIn } from "../../../actions/backlogActions";
 import PropTypes from "prop-types";
 
-class AddProjectTask extends Component {
+
+
+//have a form and post the transferIn api
+class TransferIn extends Component {
   constructor(props) {
     super(props);
     const { id } = this.props.match.params;
 
     this.state = {
-      summary: "",
-      acceptanceCriteria: "",
+      type: "",
+      amount: "",
       status: "",
-      priority: 0,
-      dueDate: "",
-      projectIdentifier: id,
+      accountIdentifier: id,
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -36,15 +37,13 @@ class AddProjectTask extends Component {
   onSubmit(e) {
     e.preventDefault();
     const newTask = {
-      summary: this.state.summary,
-      acceptanceString: this.state.acceptanceCriteria, //a typo 我的是叫acceptanceString
+      type: this.state.type,
+      amount: this.state.amount, //a typo 我的是叫amount
       status: this.state.status,
-      priority: this.state.priority,
-      dueDate: this.state.dueDate,
     };
-    this.props.addProjectTask(
+    this.props.TransferIn(
       //调用action
-      this.state.projectIdentifier,
+      this.state.accountIdentifier,
       newTask,
       this.props.history
     );
@@ -59,25 +58,25 @@ class AddProjectTask extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <Link to={`/projectBoard/${id}`} className="btn btn-primary mb-3">
-                Back to Project Board
+              <Link to={`/accountBoard/${id}`} className="btn btn-primary mb-3">
+                Back to account Board
               </Link>
-              <h4 className="display-4 text-center">Add Project Task</h4>
-              <p className="lead text-center">Project Name + Project Code</p>
+              <h4 className="display-4 text-center">Add account Task</h4>
+              <p className="lead text-center">account Name + account Code</p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.summary,
+                      "is-invalid": errors.type,
                     })}
-                    name="summary"
-                    placeholder="Project Task summary"
-                    value={this.state.summary}
+                    name="type"
+                    placeholder="account Task type"
+                    value={this.state.type}
                     onChange={this.onChange}
                   />
-                  {errors.summary && (
-                    <div className="invalid-feedback">{errors.summary}</div>
+                  {errors.type && (
+                    <div className="invalid-feedback">{errors.type}</div>
                   )}
                 </div>
                 <div className="form-group">
@@ -140,9 +139,9 @@ class AddProjectTask extends Component {
   }
 }
 
-AddProjectTask.propTypes = {
+TransferIn.propTypes = {
   errors: PropTypes.object.isRequired,
-  addProjectTask: PropTypes.func.isRequired,
+  TransferIn: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -150,4 +149,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { addProjectTask })(AddProjectTask); //这个去props里面了
+export default connect(mapStateToProps, { TransferIn })(TransferIn); //这个去props里面了
