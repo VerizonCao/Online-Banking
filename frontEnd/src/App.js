@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Addaccount from "./component/account/Addaccount";
 import UpdateAccount from "./component/account/Updateaccount";
-import recipientBoard from "./component/Transfer/Recipient";
+import recipientBoard from "./component/Transfer/Recipient/RecipientBoard";
 import TransferIn from "./component/Transfer/TransferTasks";
 import TransferOut from "./component/Transfer/TransferTasks";
 
