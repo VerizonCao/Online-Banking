@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getAccount } from "../../../actions/accountActions";
 
-class recipientBoard extends Component {
+class RecipientBoard extends Component {
   constructor() {
     super();
     this.state = {
@@ -82,4 +82,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { getAccount })(recipientBoard);
+export default connect(mapStateToProps, { getAccount })(RecipientBoard);
