@@ -7,10 +7,10 @@ import Header from "./component/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Addaccount from "./component/account/Addaccount";
-import Updateaccount from "./component/account/Updateaccount";
-import accountBoard from "./component/accountBoard/accountBoard";
-import AddaccountTask from "./component/accountBoard/accountTasks/AddaccountTask";
-import UpdateaccountTask from "./component/accountBoard/accountTasks/UpdateaccountTask";
+import UpdateAccount from "./component/account/Updateaccount";
+import recipientBoard from "./component/Transfer/Recipient";
+import TransferIn from "./component/Transfer/TransferTasks";
+import TransferOut from "./component/Transfer/TransferTasks";
 
 import Landing from "./component/Layout/Landing";
 import Register from "./component/UserManagement/Register";
@@ -27,7 +27,6 @@ import { SET_CURRENT_USER } from "./actions/types";
 
 import { logout } from "./actions/securityActions";
 
-import SecuredRoute from ".//securityUtils/SecurityRoute";
 import SecurityRoute from ".//securityUtils/SecurityRoute";
 
 const jwtToken = localStorage.jwtToken;
