@@ -3,14 +3,14 @@
 
 import { combineReducers } from "redux";
 import errorReducer from "./errorReducer";
-import projectReducer from "./accountReducer";
-import backlogReducer from "./transferReducer";
+import transferReducer from "./transferReducer";
+import accountReducer from "./accountReducer";
 import securityReducer from "./securityReducer";
 
 export default combineReducers({
   //for in mapstatetoprops
   errors: errorReducer,
-  project: projectReducer,
-  backlog: backlogReducer,
+  transfer: transferReducer,
+  account: accountReducer,
   security: securityReducer, //security 里面有user和token
 });

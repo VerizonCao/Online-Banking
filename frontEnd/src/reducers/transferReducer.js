@@ -1,35 +1,35 @@
 import {
   //得到actions的type
-  GET_BACKLOG,
-  GET_PROJECT_TASK,
-  DELETE_PROJECT_TASK,
+  GET_RECIPIENT,
+  TRANSFERIN,
+  TRANSFEROUT,
 } from "../actions/types";
 
 //初始状态
 const initialState = {
-  project_tasks: [],
-  project_task: {},
+  account_tasks: [],
+  account_task: {},
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_BACKLOG:
+    case GET_RECIPIENT:
       return {
         ...state,
-        project_tasks: action.payload, //这里的payload是从后端得到的一系列tasks
+        account_tasks: action.payload, //这里的payload是从后端得到的一系列tasks
       };
 
-    case GET_PROJECT_TASK:
+    case TRANSFERIN:
       return {
         ...state,
-        project_task: action.payload,
+        account_task: action.payload,
       };
 
-    case DELETE_PROJECT_TASK:
+    case TRANSFEROUT:
       return {
         ...state,
-        project_tasks: state.project_tasks.filter(
-          (project_task) => project_task.projectSequence !== action.payload
+        account_tasks: state.account_tasks.filter(
+          (account_task) => account_task.accountSequence !== action.payload
         ),
       };
 

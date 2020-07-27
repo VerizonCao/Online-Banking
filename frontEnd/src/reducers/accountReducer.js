@@ -1,30 +1,30 @@
-import { GET_PROJECTS, GET_PROJECT, DELETE_PROJECT } from "../actions/types";
+import { GET_ACCOUNTS, GET_ACCOUNT, DELETE_ACCOUNT } from "../actions/types";
 
 //初始的state 在redux里面的
 const initialState = {
-  projects: [],
-  project: {},
+  accounts: [],
+  account: {},
 };
 
 //array
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_PROJECTS:
+    case GET_ACCOUNTS:
       return {
         ...state,
-        projects: action.payload,
+        accounts: action.payload,
       };
-    case GET_PROJECT:
+    case GET_ACCOUNT:
       return {
         ...state,
-        project: action.payload,
+        account: action.payload,
       };
-    case DELETE_PROJECT:
+    case DELETE_ACCOUNT:
       return {
         ...state,
-        projects: state.projects.filter(
+        accounts: state.accounts.filter(
           //因为传来的是id，所以打配合
-          (project) => project.projectIdentifier !== action.payload
+          (account) => account.accountIdentifier !== action.payload
         ),
       };
 

@@ -6,11 +6,11 @@ import Header from "./component/Layout/Header";
 //install bootstrap in npm
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AddProject from "./component/project/AddProject";
-import UpdateProject from "./component/project/UpdateProject";
-import ProjectBoard from "./component/ProjectBoard/ProjectBoard";
-import AddProjectTask from "./component/ProjectBoard/ProjectTasks/AddProjectTask";
-import UpdateProjectTask from "./component/ProjectBoard/ProjectTasks/UpdateProjectTask";
+import Addaccount from "./component/account/Addaccount";
+import Updateaccount from "./component/account/Updateaccount";
+import accountBoard from "./component/accountBoard/accountBoard";
+import AddaccountTask from "./component/accountBoard/accountTasks/AddaccountTask";
+import UpdateaccountTask from "./component/accountBoard/accountTasks/UpdateaccountTask";
 
 import Landing from "./component/Layout/Landing";
 import Register from "./component/UserManagement/Register";
@@ -53,7 +53,7 @@ if (jwtToken) {
 function App() {
   return (
     //整个是一个router
-    //route 只是规定了，如果访问这个route，就被传动到{addProject}
+    //route 只是规定了，如果访问这个route，就被传动到{addaccount}
     //在这里加入store   provider将store连接组建吗，告诉component state改变了。让他改变props
     <Provider store={store}>
       <Router>
@@ -72,27 +72,32 @@ function App() {
           }
           <Switch>
             <SecurityRoute exact path="/dashboard" component={Dashboard} />
-            <SecurityRoute exact path="/addProject" component={AddProject} />
+            <SecurityRoute exact path="/addaccount" component={Addaccount} />
             <SecurityRoute
               exact
-              path="/updateProject/:id"
-              component={UpdateProject}
+              path="/updateaccount/:id"
+              component={UpdateAccount}
             />
             <SecurityRoute
               exact
-              path="/projectBoard/:id"
-              component={ProjectBoard}
+              path="/recipient/:id"
+              component={recipientBoard}
             />
             <SecurityRoute
               exact
-              path="/addProjectTask/:id"
-              component={AddProjectTask}
+              path="/addRecipient/:id"
+              component={Addrecipient}
             />
             <SecurityRoute
               exact
-              path="/updateProjectTask/:backlog_id/:pt_id"
-              component={UpdateProjectTask}
+              path="/transferTaskIn/:recipient_id/:pt_id"
+              component={TransferIn}
             />
+            <SecurityRoute
+              exact
+              path="/transferTaskOut/:recipient_id/:pt_id"
+              component={TransferOut}
+            />        
           </Switch>
         </div>
       </Router>

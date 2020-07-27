@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Backlog from "./Backlog";
+import account from "./account";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getBacklog } from "../../actions/backlogActions";
+import { getAccount } from "../../../actions/accountActions";
 
-class ProjectBoard extends Component {
+class recipientBoard extends Component {
   constructor() {
     super();
     this.state = {
@@ -14,9 +14,9 @@ class ProjectBoard extends Component {
   }
 
   componentDidMount() {
-    //通过这个吧backlog得到到redux store里面，然后下面的映射到props里面  然后就是展示
+    //通过这个吧account得到到redux store里面，然后下面的映射到props里面  然后就是展示
     const { id } = this.props.match.params;
-    this.props.getBacklog(id);
+    this.props.getAccount(id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,38 +28,38 @@ class ProjectBoard extends Component {
 
   render() {
     const { id } = this.props.match.params;
-    const { project_tasks } = this.props.backlog;
+    const { recipient_tasks } = this.props.account;
     const { errors } = this.state;
 
     let BoardContent;
 
-    const boardAlgorithm = (errors, project_tasks) => {
-      if (project_tasks.length < 1) {
-        if (errors.projectNotFound) {
+    const boardAlgorithm = (errors, recipient_tasks) => {
+      if (recipient_tasks.length < 1) {
+        if (errors.recipientNotFound) {
           return (
             <div className="alert alert-danger text-center" role="alert">
-              {errors.projectNotFound}
+              {errors.recipientNotFound}
             </div>
           );
         } else {
           return (
             <div className="alert alert-info text-center" role="alert">
-              No Project Tasks on this board
+              No recipient Tasks on this board
             </div>
           );
         }
       } else {
         //原来返回的
-        return <Backlog project_tasks_prop={project_tasks} />;
+        return <account recipient_tasks_prop={recipient_tasks} />;
       }
     };
 
-    BoardContent = boardAlgorithm(errors, project_tasks);
+    BoardContent = boardAlgorithm(errors, recipient_tasks);
 
     return (
       <div className="container">
-        <Link to={`/addProjectTask/${id}`} className="btn btn-primary mb-3">
-          <i className="fas fa-plus-circle"> Create Project Task</i>
+        <Link to={`/addrecipientTask/${id}`} className="btn btn-primary mb-3">
+          <i className="fas fa-plus-circle"> Create recipient Task</i>
         </Link>
         <br />
         <hr />
@@ -71,15 +71,15 @@ class ProjectBoard extends Component {
   }
 }
 
-ProjectBoard.propTypes = {
-  backlog: PropTypes.object.isRequired,
-  getBacklog: PropTypes.func.isRequired,
+recipientBoard.propTypes = {
+  account: PropTypes.object.isRequired,
+  getAccount: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  backlog: state.backlog,
+  account: state.account,
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { getBacklog })(ProjectBoard);
+export default connect(mapStateToProps, { getAccount })(recipientBoard);

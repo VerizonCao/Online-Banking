@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 
 //get actions
-import { createRecipient } from "../../actions/transferActions";
+import { createRecipient } from "../../../actions/transferActions";
 
 
 //form and post adding recipient API

@@ -1,32 +1,31 @@
 import React, { Component } from "react";
-import ProjectItem from "./project/ProjectItem";
-import CreateButton from "./project/CreateButton";
+import CreateButton from "./account/CreateButton";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { getProjects } from "../actions/projectAction";
+import { getAccounts } from "../actions/accountAction";
 
 //rcc create a class
 
 class Dashboard extends Component {
   //start
   componentDidMount() {
-    this.props.getProjects();
+    this.props.getAccounts();
   }
 
   render() {
-    const projects = this.props.project.projects;
+    const accounts = this.props.account.accounts;
     return (
-      <div className="projects">
+      <div className="accounts">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1 className="display-4 text-center">Projects</h1>
+              <h1 className="display-4 text-center">accounts</h1>
               <br />
               <CreateButton />
               <br />
               <hr />
-              {projects.map((project) => (
-                <ProjectItem key={project.id} project={project} />
+              {accounts.map((account) => (
+                <accountItem key={account.id} account={account} />
               ))}
             </div>
           </div>
@@ -38,12 +37,12 @@ class Dashboard extends Component {
 
 //与主逻辑无关
 Dashboard.propTypes = {
-  project: PropTypes.object.isRequired,
-  getProjects: PropTypes.func.isRequired,
+  account: PropTypes.object.isRequired,
+  getAccounts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  project: state.project,
+  account: state.account,
 });
 
-export default connect(mapStateToProps, { getProjects })(Dashboard);
+export default connect(mapStateToProps, { getAccounts })(Dashboard);
